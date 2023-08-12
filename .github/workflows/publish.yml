@@ -38,7 +38,7 @@ jobs:
     name: Publish to NuGet
     runs-on: windows-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: "contains(github.event.head_commit.message, 'Release v')"
   
     steps:
     - name: Use NuGet
