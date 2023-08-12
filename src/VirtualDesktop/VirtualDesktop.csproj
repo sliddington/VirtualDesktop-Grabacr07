@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>5.0.8</Version>
+    <Version>5.0.9</Version>
     <Product>VirtualDesktop</Product>
     <Authors>Grabacr07, maciej-makowski, Slion</Authors>
     <Company>slions.net</Company>
