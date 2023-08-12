@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ release ]
+    branches: [ main ]
 
 env:
   DOTNET_VERSION: 6.0.x
@@ -38,7 +38,7 @@ jobs:
     name: Publish to NuGet
     runs-on: windows-latest
     needs: build
-    if: github.ref == 'refs/heads/release'
+    if: github.ref == 'refs/heads/main'
   
     steps:
     - name: Use NuGet
