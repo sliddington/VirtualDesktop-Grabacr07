@@ -4,8 +4,13 @@ VirtualDesktop is C# wrapper for [IVirtualDesktopManager](https://msdn.microsoft
 
 [![Build](https://github.com/Slion/VirtualDesktop/workflows/Build/badge.svg)](https://github.com/Slion/VirtualDesktop/actions/workflows/build.yml)
 [![Publish](https://github.com/Slion/VirtualDesktop/workflows/Publish/badge.svg)](https://github.com/Slion/VirtualDesktop/actions/workflows/publish.yml)
-[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Slions.VirtualDesktop)](https://www.nuget.org/packages/Slions.VirtualDesktop/)
 [![License](https://img.shields.io/github/license/Slion/VirtualDesktop)](LICENSE)
+
+| Platform | NuGet |
+| -- | -- |
+| Core | [![NuGet Badge](https://buildstats.info/nuget/Slions.VirtualDesktop)](https://www.nuget.org/packages/Slions.VirtualDesktop/) |
+| Forms | [![NuGet Badge](https://buildstats.info/nuget/Slions.VirtualDesktop.WinForms)](https://www.nuget.org/packages/Slions.VirtualDesktop.WinForms/) |
+| WPF | [![NuGet Badge](https://buildstats.info/nuget/Slions.VirtualDesktop.WPF)](https://www.nuget.org/packages/Slions.VirtualDesktop.WPF/) |
 
 
 ## Features
