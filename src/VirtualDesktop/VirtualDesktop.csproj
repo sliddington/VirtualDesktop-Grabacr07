@@ -7,10 +7,10 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>5.0.7</Version>
+    <Version>5.0.8</Version>
     <Product>VirtualDesktop</Product>
     <Authors>Grabacr07, maciej-makowski, Slion</Authors>
-    <Company>grabacr.net</Company>
+    <Company>slions.net</Company>
     <Copyright>Copyright © 2022 Manato KAMEYA</Copyright>
     <Description>C# Wrapper for the Virtual Desktop API on Windows 11 (and Windows 10).</Description>
     <RepositoryUrl>https://github.com/Slion/VirtualDesktop</RepositoryUrl>
