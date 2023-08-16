@@ -147,7 +147,6 @@ Open the resulting reg file and search it for matches against the whole word of 
 - `IVirtualDesktopNotificationService`
 - `IVirtualDesktopPinnedApps`
 
-
 Once you have the IDs add them in a new `setting` element in [app.config].
 Make sure to specify the correct 5 digits Windows build version.
 You can get it using one of those methods:
@@ -157,8 +156,14 @@ You can get it using one of those methods:
 
 Make sure to contribute back your changes.
 
-### See also:
+### Publish
+
+To publish a new release specify your version in [Directory.Build.props] and push the changes with a commit description such as:
+`Release vx.y.z` where `x`, `y`, `z` form your version number. That should publish it on NuGet providing that your secret `NUGET_API_KEY` is still valid.
+
+### Resources
 * [samples/README.md](samples/README.md)
+* [StackOverflow](https://stackoverflow.com/questions/32416843/programmatic-control-of-virtual-desktops-in-windows-10)
 
 
 ## License
@@ -167,3 +172,4 @@ This library is under [the MIT License](https://github.com/Grabacr07/VirtualDesk
 
 
 [app.config]: src/VirtualDesktop/app.config
+[Directory.Build.props]: src/Directory.Build.props
