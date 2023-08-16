@@ -128,6 +128,35 @@ window.MoveToDesktop(desktop);
 window.Pin()
 ```
 
+### Windows version support
+
+The class IDs of some of the undocumented interfaces we use tend to change a lot between different versions of Windows.
+If the demo application crashes on start-up chances are all you need to do is provide the proper IDs for the version of Windows you are running on.
+
+Open `regedit` and export this path into a file: `\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Interface`.
+Open the resulting reg file and search it for matches against the whole word of each interface name we need:
+
+- `IApplicationView`
+- `IApplicationViewCollection`
+- `IObjectArray`
+- `IServiceProvider`
+- `IVirtualDesktop`
+- `IVirtualDesktopManager`
+- `IVirtualDesktopManagerInternal`
+- `IVirtualDesktopNotification`
+- `IVirtualDesktopNotificationService`
+- `IVirtualDesktopPinnedApps`
+
+
+Once you have the IDs add them in a new `setting` element in [app.config].
+Make sure to specify the correct 5 digits Windows build version.
+You can get it using one of those methods:
+- From the UI run: `winver`
+- From shell run: `ver`
+- From powershell run: `cmd /c ver`
+
+Make sure to contribute back your changes.
+
 ### See also:
 * [samples/README.md](samples/README.md)
 
@@ -135,3 +164,6 @@ window.Pin()
 ## License
 
 This library is under [the MIT License](https://github.com/Grabacr07/VirtualDesktop/blob/master/LICENSE).
+
+
+[app.config]: src/VirtualDesktop/app.config
