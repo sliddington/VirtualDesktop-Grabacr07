@@ -1,5 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<PublishVersion>5.1.2</PublishVersion>
+		<PublishVersion>5.2.0</PublishVersion>
+		<PublishReleaseNotes>Support for .NET 7.0</PublishReleaseNotes>
 	</PropertyGroup>
 </Project>
