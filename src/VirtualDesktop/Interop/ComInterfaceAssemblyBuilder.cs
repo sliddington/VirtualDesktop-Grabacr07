@@ -22,8 +22,9 @@ internal class ComInterfaceAssemblyBuilder
     private const string _placeholderAssemblyVersion = "{ASSEMBLY_VERSION}";
     private const string _placeholderInterfaceId = "00000000-0000-0000-0000-000000000000";
 
-    // TODO: Increment that to force assembly to be regenerated
-    private static readonly Version _requireVersion = new("2.2.1");
+    // Now using assembly version even though regenerating our DLL won't strictly be needed for every new version this is the safest option
+    // Otherwise people will surely forget to increment a specific version here
+    private static readonly Version? _requireVersion = Assembly.GetExecutingAssembly().GetName().Version;
     private static readonly Regex _assemblyRegex = new(@"VirtualDesktop\.(?<build>\d{5}\.\d{4}?)(\.\w*|)\.dll");
     private static readonly Regex _buildNumberRegex = new(@"\.Build(?<build>\d{5}\.\d{4})\.");
     private static readonly double osBuild = OS.Build();
@@ -57,6 +58,10 @@ internal class ComInterfaceAssemblyBuilder
 #if !DEBUG
                             return Assembly.LoadFile(file.FullName);
 #endif
+                        }
+                        else 
+                        {
+                            Debug.WriteLine($"Outdated assembly: {name.Version} < {_requireVersion}");
                         }
                     }
                     catch (Exception ex)
@@ -107,6 +112,7 @@ internal class ComInterfaceAssemblyBuilder
         //           └── 10240, VirtualDesktop.Interop.Build10240..interfaces.IVirtualDesktopPinnedApps.cs
         var interfaceSourceFiles = new Dictionary<string, SortedList<double, string>>();
 
+        // This is where we decide which interface variant goes into our generated DLL assembly
         foreach (var name in executingAssembly.GetManifestResourceNames())
         {
             var interfaceName = Path.GetFileNameWithoutExtension(name).Split('.').LastOrDefault();

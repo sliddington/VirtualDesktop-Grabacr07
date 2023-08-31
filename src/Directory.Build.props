@@ -1,6 +1,7 @@
 <Project>
 	<PropertyGroup>
-		<PublishVersion>5.2.0</PublishVersion>
-		<PublishReleaseNotes>Support for .NET 7.0</PublishReleaseNotes>
+		<PublishVersion>6.0.0</PublishVersion>
+		<PublishReleaseNotes>Support OS Build 22621.2215
+Support for .NET 7.0</PublishReleaseNotes>
 	</PropertyGroup>
 </Project>
