@@ -1,7 +1,10 @@
 <Project>
 	<PropertyGroup>
-		<PublishVersion>6.1.0</PublishVersion>
+		<PublishVersion>6.2.0</PublishVersion>
 		<PublishReleaseNotes>
+			v6.2.0
+			Better OS version resolution
+
 			v6.1.0
 			Support OS Build 20348.1906
 

@@ -34,7 +34,7 @@ VirtualDesktop is C# wrapper for [IVirtualDesktopManager](https://msdn.microsoft
 ```xml
 <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
 ```
-* .NET 5 or 6
+* .NET 5, 6 or 7
 * Windows 10 build 19041 (20H1) or later
 
 
