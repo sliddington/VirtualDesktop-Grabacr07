@@ -1,7 +1,11 @@
 <Project>
 	<PropertyGroup>
-		<PublishVersion>6.2.0</PublishVersion>
+		<PublishVersion>6.2.1</PublishVersion>
+		<PublishAuthors>Grabacr07, maciej-makowski, mzomparelli, Slion</PublishAuthors>
 		<PublishReleaseNotes>
+			v6.2.1
+			Add mzomparelli to list of authors
+
 			v6.2.0
 			Better OS version resolution
 

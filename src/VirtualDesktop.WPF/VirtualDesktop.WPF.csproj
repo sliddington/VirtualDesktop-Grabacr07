@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
     <Version>$(PublishVersion)</Version>
     <Product>VirtualDesktop</Product>
-	<Authors>Grabacr07, maciej-makowski, Slion</Authors>
+    <Authors>$(PublishAuthors)</Authors>
     <Company>slions.net</Company>
     <Copyright>Copyright © 2022 Manato KAMEYA</Copyright>
     <Description>C# Wrapper for the Virtual Desktop API on Windows 11 (and Windows 10).</Description>
