@@ -35,20 +35,47 @@ partial class VirtualDesktop
 
     static VirtualDesktop()
     {
-        _provider = OS.Build() switch
-        {
-            >= 22621.2215 => new VirtualDesktopProvider22621(), // Windows 11 22H2
-            >= 22000 => new VirtualDesktopProvider22000(),      //Windows 11 21H2
-            >= 20348 => new VirtualDesktopProvider20348(),      // Windows Server 2022
-            >= 10240 => new VirtualDesktopProvider10240(),
-            _ => new VirtualDesktopProvider.NotSupported()
-        };
+        
+        _provider = CreateProvider();
 
         Debug.WriteLine($"*** {AssemblyInfo.Title} Library ***");
         Debug.WriteLine($"Version:  {AssemblyInfo.VersionString}");
-        Debug.WriteLine($"OS Build: {OS.Build()}");
+        Debug.WriteLine($"OS Build: {OS.Build}");
         Debug.WriteLine($"Provider: {_provider.GetType().Name}");
     }
+
+    /// <summary>
+    ///  Create provider for current OS version.
+    ///  Test order matters. Make sure you test the highest version first.
+    /// </summary>
+    /// <returns></returns>
+    private static VirtualDesktopProvider CreateProvider()
+    {
+        Version v = OS.Build;
+
+        if (v >= new Version(10, 0, 22621, 2215))
+        {
+            return new VirtualDesktopProvider22621();
+        }
+
+        if (v >= new Version(10, 0, 22000, 0))
+        {
+            return new VirtualDesktopProvider22000();
+        }
+
+        if (v >= new Version(10, 0, 20348, 0))
+        {
+            return new VirtualDesktopProvider20348();
+        }
+        
+        if (v >= new Version(10, 0, 10240, 0))
+        {
+            return new VirtualDesktopProvider10240();
+        }
+       
+        return new VirtualDesktopProvider.NotSupported();
+    }
+
 
     private VirtualDesktop(IVirtualDesktop source)
     {

@@ -25,9 +25,10 @@ internal class ComInterfaceAssemblyBuilder
     // Now using assembly version even though regenerating our DLL won't strictly be needed for every new version this is the safest option
     // Otherwise people will surely forget to increment a specific version here
     private static readonly Version? _requireVersion = Assembly.GetExecutingAssembly().GetName().Version;
-    private static readonly Regex _assemblyRegex = new(@"VirtualDesktop\.(?<build>\d{5}\.\d{4}?)(\.\w*|)\.dll");
-    private static readonly Regex _buildNumberRegex = new(@"\.Build(?<build>\d{5}\.\d{4})\.");
-    private static readonly double osBuild = OS.Build();
+    private static readonly Regex _assemblyRegex = new(@"VirtualDesktop\.10\.0\.(?<build>\d+\.\d+)(\.\w*|)\.dll");
+    private static readonly Regex _buildNumberRegex = new(@"\.Build(?<build>\d+\.\d+)\.");
+    private static readonly Version osBuild = OS.Build;
+    
     private static ComInterfaceAssembly? _assembly;
 
     private readonly VirtualDesktopCompilerConfiguration _configuration;
@@ -46,7 +47,7 @@ internal class ComInterfaceAssemblyBuilder
         {
             foreach (var file in this._configuration.CompiledAssemblySaveDirectory.GetFiles())
             {
-                if (double.TryParse(_assemblyRegex.Match(file.Name).Groups["build"].ToString(), out var build)
+                if (Version.TryParse(OS.VersionPrefix + _assemblyRegex.Match(file.Name).Groups["build"].ToString(), out var build)
                     && build == osBuild)
                 {
                     try
@@ -57,6 +58,8 @@ internal class ComInterfaceAssemblyBuilder
                             Debug.WriteLine($"Assembly found: {file.FullName}");
 #if !DEBUG
                             return Assembly.LoadFile(file.FullName);
+#else
+                            Debug.WriteLine($"Debug force assembly creation");
 #endif
                         }
                         else 
@@ -110,7 +113,7 @@ internal class ComInterfaceAssemblyBuilder
         //           └── 22000, VirtualDesktop.Interop.Build22000..interfaces.IVirtualDesktop.cs
         //   IVirtualDesktopPinnedApps
         //           └── 10240, VirtualDesktop.Interop.Build10240..interfaces.IVirtualDesktopPinnedApps.cs
-        var interfaceSourceFiles = new Dictionary<string, SortedList<double, string>>();
+        var interfaceSourceFiles = new Dictionary<string, SortedList<Version, string>>();
 
         // This is where we decide which interface variant goes into our generated DLL assembly
         foreach (var name in executingAssembly.GetManifestResourceNames())
@@ -118,11 +121,11 @@ internal class ComInterfaceAssemblyBuilder
             var interfaceName = Path.GetFileNameWithoutExtension(name).Split('.').LastOrDefault();
             if (interfaceName != null
                 && interfaceNames.Contains(interfaceName)
-                && double.TryParse(_buildNumberRegex.Match(name.Replace('_','.')).Groups["build"].ToString(), out var build))
+                && Version.TryParse(OS.VersionPrefix + _buildNumberRegex.Match(name.Replace('_','.')).Groups["build"].ToString(), out var build))
             {
                 if (interfaceSourceFiles.TryGetValue(interfaceName, out var sourceFiles) == false)
                 {
-                    sourceFiles = new SortedList<double, string>();
+                    sourceFiles = new SortedList<Version, string>();
                     interfaceSourceFiles.Add(interfaceName, sourceFiles);
                 }
 

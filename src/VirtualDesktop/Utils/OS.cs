@@ -13,12 +13,19 @@ namespace WindowsDesktop.Utils
         /// Return the OS Build number such as: 22621.2215
         /// </summary>
         /// <returns></returns>
-        public static double Build()
+        public static Version Build
         {
-            int _osBuild = Environment.OSVersion.Version.Build;
-            int _osRevision = int.Parse(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("UBR").ToString());
-            double _osId = _osBuild + (_osRevision / 10000d);
-            return _osId;
+            get
+            {
+                Version v = Environment.OSVersion.Version;
+                Version actual = new(v.Major, v.Minor, v.Build, int.Parse(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("UBR").ToString()));
+                return actual;
+            }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly String VersionPrefix = "10.0.";
     }
 }

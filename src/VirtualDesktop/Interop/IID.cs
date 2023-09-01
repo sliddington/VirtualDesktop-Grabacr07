@@ -12,13 +12,13 @@ using WindowsDesktop.Utils;
 namespace WindowsDesktop.Interop;
 
 internal record OsBuildSettings(
-    double osBuild,
+    Version osBuild,
     SettingsProperty prop);
 
 internal static class IID
 {
-    private static readonly Regex _osBuildRegex = new(@"v_(?<build>\d{5}_\d{4}?)");
-    
+    private static readonly Regex _osBuildRegex = new(@"v_(?<build>\d+_\d+)");    
+
     // ReSharper disable once InconsistentNaming
     public static Dictionary<string, Guid> GetIIDs(string[] interfaceNames)
     {
@@ -28,7 +28,7 @@ internal static class IID
         var orderedProps = Settings.Default.Properties.OfType<SettingsProperty>()
             .Select(prop =>
             {
-                if (double.TryParse(_osBuildRegex.Match(prop.Name).Groups["build"].ToString().Replace('_','.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var build))
+                if (Version.TryParse(OS.VersionPrefix + _osBuildRegex.Match(prop.Name).Groups["build"].ToString().Replace('_','.'), out var build))
                 {
                     return new OsBuildSettings(build, prop);
                 }
@@ -41,7 +41,7 @@ internal static class IID
 
         // Find first prop with build version <= current OS version
         var selectedSettings = orderedProps.FirstOrDefault(p =>
-            p.osBuild <= OS.Build()
+            p.osBuild <= OS.Build
         );
         
         if (selectedSettings == null)
@@ -49,7 +49,7 @@ internal static class IID
             var supportedBuilds = orderedProps.Select(v => v.osBuild).ToArray();
             throw new ConfigurationException(
                 "Invalid application configuration. Unable to determine interop interfaces for " +
-                $"current OS Build: {OS.Build()}. All configured OS Builds " +
+                $"current OS Build: {OS.Build}. All configured OS Builds " +
                 $"have build version greater than current OS: {supportedBuilds}");
         }
 
