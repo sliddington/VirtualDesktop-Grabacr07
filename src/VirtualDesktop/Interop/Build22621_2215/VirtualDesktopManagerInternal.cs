@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using WindowsDesktop.Interop.Proxy;
@@ -44,6 +44,9 @@ internal class VirtualDesktopManagerInternal : ComWrapperBase<IVirtualDesktopMan
 
     public void SwitchDesktop(IVirtualDesktop desktop)
         => this.InvokeMethod(Args(((VirtualDesktop)desktop).ComObject));
+
+    public void MoveDesktop(IVirtualDesktop pMove, int nIndex)
+        => this.InvokeMethod(Args(((VirtualDesktop)pMove).ComObject, nIndex));
 
     public void RemoveDesktop(IVirtualDesktop pRemove, IVirtualDesktop pFallbackDesktop)
         => this.InvokeMethod(Args(((VirtualDesktop)pRemove).ComObject, ((VirtualDesktop)pFallbackDesktop).ComObject));
