@@ -26,10 +26,10 @@ namespace WindowsDesktop.Interop.Build22621
         void CurrentVirtualDesktopChanged(IVirtualDesktop pDesktopOld, IVirtualDesktop pDesktopNew);
 
         void VirtualDesktopWallpaperChanged(IVirtualDesktop pDesktop, HString chPath);
-        
-        IVirtualDesktop VirtualDesktopSwitched();
-        
-        IVirtualDesktop RemoteVirtualDesktopConnected();
+
+        void VirtualDesktopSwitched(IVirtualDesktop pDesktop);
+
+        void RemoteVirtualDesktopConnected(IVirtualDesktop pDesktop);
     }
 
     internal class VirtualDesktopNotification : VirtualDesktopNotificationService.EventListenerBase, IVirtualDesktopNotification
@@ -78,16 +78,16 @@ namespace WindowsDesktop.Interop.Build22621
         {
             this.WallpaperChangedCore(pDesktop, chPath);
         }
-        
-        public IVirtualDesktop VirtualDesktopSwitched()
+
+        public void VirtualDesktopSwitched(IVirtualDesktop pDesktop)
         {
-            return this.VirtualDesktopSwitched();
+            this.SwitchedCore(pDesktop);
         }
 
-        public IVirtualDesktop RemoteVirtualDesktopConnected()
+        public void RemoteVirtualDesktopConnected(IVirtualDesktop pDesktop)
         {
-            return this.RemoteVirtualDesktopConnected();
+            this.RemoteConnectedCore(pDesktop);
         }
-        
+
     }
 }
