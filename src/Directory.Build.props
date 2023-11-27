@@ -1,8 +1,11 @@
 <Project>
 	<PropertyGroup>
-		<PublishVersion>6.3.0</PublishVersion>
+		<PublishVersion>6.4.0</PublishVersion>
 		<PublishAuthors>Grabacr07, maciej-makowski, mzomparelli, Slion</PublishAuthors>
 		<PublishReleaseNotes>
+      v6.4.0
+      Fix crash when changing desktop
+      
       v6.3.0
       Desktop move support
 
